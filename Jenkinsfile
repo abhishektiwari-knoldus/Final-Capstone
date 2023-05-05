@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('docker build') {
+        stage('test') {
             steps {
                 sh 'echo hello'
             }
