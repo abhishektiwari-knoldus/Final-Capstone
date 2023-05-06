@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     stages {
-        stage('test') {
+        stage('testing') {
             steps {
-                sh 'echo hello'
+                sh 'echo testing is completed'
             }
             
         }
