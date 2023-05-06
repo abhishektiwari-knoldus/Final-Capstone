@@ -29,7 +29,7 @@ pipeline {
                  sh 'docker push abhishek00007/lampp:${BUILD_NUMBER}'
             }
         }
-        stage('deploy k8s')
+        stage('Deploy to K8s')
         {
             steps
             {
@@ -37,7 +37,7 @@ pipeline {
 
               sh 'kubectl apply -f phppod.yml'  
               sh 'kubectl set image deployment/mydeploy mycontainer=abhishek00007/lampp:${BUILD_NUMBER}'
-              //sh 'kubectl rollout undu deployment/mydeploy'
+              
               
 }
                
