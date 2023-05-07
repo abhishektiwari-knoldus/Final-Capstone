@@ -21,6 +21,12 @@ spec:
         image: abhishek00007/lampp:100
         ports:
         - containerPort: 80
+        readinessProbe:
+          httpGet:
+            path: /app
+            port: 8080
+          initialDelaySeconds: 1
+          periodSeconds: 1  
 ---
 apiVersion: v1
 kind: Service
