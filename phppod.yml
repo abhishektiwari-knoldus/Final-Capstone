@@ -52,4 +52,6 @@ spec:
   volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
+  hostPath:
+    path: /mnt/data  
  
