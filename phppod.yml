@@ -17,10 +17,14 @@ spec:
         app: mypod
     spec:
       containers:
-      - name: mycontainer
-        image: abhishek00007/lampp:100
-        ports:
-        - containerPort: 80
+        - name: mycontainer
+          image: abhishek00007/lampp:100
+          ports:
+          - containerPort: 80
+      volumes:
+        - name: my-volume
+          persistentVolumeClaim:
+            claimName: my-pvc  
 ---
 apiVersion: v1
 kind: Service
@@ -34,3 +38,18 @@ spec:
     targetPort: 80
     nodePort: 31000
   type: NodePort
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mypvc
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: standard    
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+ 
