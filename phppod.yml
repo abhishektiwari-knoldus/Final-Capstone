@@ -48,10 +48,22 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: standard    
+  storageClassName: standard 
+  volumeName: my-pv   
   volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: my-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
   hostPath:
-    path: /mnt/data  
+    path: /mnt/data
+
  
