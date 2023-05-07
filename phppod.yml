@@ -13,18 +13,24 @@ spec:
       app: mypod
   template:
     metadata:
-      labels:
-        app: mypod
+       labels:
+         app: mypod
     spec:
       containers:
         - name: mycontainer
           image: abhishek00007/lampp:100
+          volumeMounts:
+           - name: task-pv-storage
+             mountPath: /app
           ports:
           - containerPort: 80
+         
       volumes:
-        - name: my-volume
+        - name: task-pv-storage
           persistentVolumeClaim:
-            claimName: mypvc
+            claimName: mypvc      
+
+      
 ---
 apiVersion: v1
 kind: Service
@@ -47,22 +53,24 @@ metadata:
 spec:
   resources:
     requests:
-      storage: 1Gi
-  storageClassName: standard 
+      storage: 3Gi
+  storageClassName: manual
   volumeName: my-pv   
-  volumeMode: Filesystem
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: my-pv
+  labels:
+    type: local
 spec:
+  storageClassName: manual
   capacity:
-    storage: 1Gi
+    storage: 10Gi
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   hostPath:
     path: /mnt/data
 
