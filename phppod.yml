@@ -13,24 +13,14 @@ spec:
       app: mypod
   template:
     metadata:
-       labels:
-         app: mypod
+      labels:
+        app: mypod
     spec:
       containers:
-        - name: mycontainer
-          image: abhishek00007/lampp:100
-          volumeMounts:
-           - name: task-pv-storage
-             mountPath: /app
-          ports:
-          - containerPort: 80
-         
-      volumes:
-        - name: task-pv-storage
-          persistentVolumeClaim:
-            claimName: mypvc      
-
-      
+      - name: mycontainer
+        image: abhishek00007/lampp:100
+        ports:
+        - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
@@ -44,34 +34,3 @@ spec:
     targetPort: 80
     nodePort: 31000
   type: NodePort
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mypvc
-spec:
-  resources:
-    requests:
-      storage: 3Gi
-  storageClassName: manual
-  volumeName: my-pv   
-  accessModes:
-    - ReadWriteOnce
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: my-pv
-  labels:
-    type: local
-spec:
-  storageClassName: manual
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: /mnt/data
-
- 
