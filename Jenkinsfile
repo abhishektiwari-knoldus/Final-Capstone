@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('docker bui') {
+        stage('docker build') {
             steps {
                 sh 'docker build . -t abhishek00007/lampp:${BUILD_NUMBER}'
                 
