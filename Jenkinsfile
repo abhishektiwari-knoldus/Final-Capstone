@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-       stage("Git "){           
+       stage("Git op"){           
          steps{                
            git branch: 'feature', url: 'https://github.com/abhishektiwari-knoldus/Final-Capstone'                 
          }        
