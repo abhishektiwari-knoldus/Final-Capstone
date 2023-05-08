@@ -2,6 +2,12 @@ pipeline {
     agent any
 
     stages {
+       stage("Git Checkout"){           
+         steps{                
+           git branch: 'feature', url: 'https://github.com/abhishektiwari-knoldus/Final-Capstone'                 
+         }        
+    }
+
         stage('docker build') {
             steps {
                 sh 'docker build . -t abhishek00007/lampp:${BUILD_NUMBER}'
