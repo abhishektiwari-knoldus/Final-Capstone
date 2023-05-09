@@ -19,7 +19,7 @@ pipeline {
                       }
                  }
     }
-        stage('docker image push')
+        stage('docker image pushh')
         {
              when {
                 branch "master"
