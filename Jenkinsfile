@@ -6,6 +6,7 @@ pipeline {
             steps {
                 sh 'docker build . -t abhishek00007/lampp:${BUILD_NUMBER}'
                 //sh 'docker run -p 8086:80 -d lamp/php1'
+                valekfjdvh
             }
             
         }
