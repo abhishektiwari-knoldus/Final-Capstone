@@ -2,16 +2,10 @@ pipeline {
     agent any
 
     stages {
-       stage("Git op"){           
-         steps{                
-           git branch: 'feature', url: 'https://github.com/abhishektiwari-knoldus/Final-Capstone'                 
-         }        
-    }
-
         stage('docker build') {
             steps {
-                echo 'hello'
-                
+                sh 'docker build . -t abhishek00007/lampp:${BUILD_NUMBER}'
+                //sh 'docker run -p 8086:80 -d lamp/php1'
             }
             
         }
@@ -20,7 +14,8 @@ pipeline {
                 script{
                     withCredentials([string(credentialsId: 'dochub-pwd', variable: 'dockerhubpwd')]) {
                     sh 'docker login -u abhishek00007 -p ${dockerhubpwd}'
-                   
+                    //sh 'docker tag lamp/php1 abhishek00007/lampp:${BUILD_NUMBER}'
+                   // sh 'docker push abhishek00007/lampp:${BUILD_NUMBER}'
   
 }
 
@@ -31,11 +26,10 @@ pipeline {
         {
             steps
             {
-                sh 'docker push abhishek00007/lampp:${BUILD_NUMBER}'
-                // sh 'echo feature test'
+                 sh 'docker push abhishek00007/lampp:${BUILD_NUMBER}'
             }
         }
-        stage('Deploy to K8s')
+        stage('deploy k8s')
         {
             steps
             {
@@ -43,7 +37,7 @@ pipeline {
 
               sh 'kubectl apply -f phppod.yml'  
               sh 'kubectl set image deployment/mydeploy mycontainer=abhishek00007/lampp:${BUILD_NUMBER}'
-              
+              //sh 'kubectl rollout undu deployment/mydeploy'
               
 }
                
